@@ -1,0 +1,36 @@
+body {
+	background-image: url("../images/tunnel2_2.jpg");
+}
+.jumbotron{
+	font-family: 'Bangers';
+	background-image: url("../images/tunnel2.jpg");    
+}
+#table{
+	
+  }
+#index h1 {
+		font-family: 'Bangers';
+		color: #e2fff5;
+}
+#index h3{
+	font-family: 'Bangers';
+	color: #039bbc;
+}
+#train-table .panel-heading{
+	background-color: #5fc8e2;
+}
+#train-table .panel-default{
+	background-color:#b5e1e2;
+}
+#form{
+	 box-shadow: 15 15 40px black;
+}
+#form .panel-default{
+	background-color:#b5e1e2;
+}
+#form .panel-heading{
+	background-color: #5fc8e2;
+}
+#form .form-control{
+	background-color: #e3f5f9;
+}

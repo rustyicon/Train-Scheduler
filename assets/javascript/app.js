@@ -10,45 +10,65 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
+
+$("#submit").on("click", function(event) {
+    event.preventDefault();
+
     
+    var trainName = $("#name-input").val().trim();
 
-    var freqInput = $("#frequ-input").val().trim();
+    var destination = $("#dest-input").val().trim();
 
-    var inputTconverted = moment(inputT, "hh:mm").subtract(1, "years");
-
-    var difference = moment().diff(moment(inputTconverted), "minutes");
-
-    var remainder = difference % freqInput;
 
     var inputT = $("#train-time").val().trim();
 
-    var freqInput = $("#frequ-input").val().trim();
+    var currentT = moment().format("hh:mm");
+
+    var inputTconverted = moment(inputT, "hh:mm").subtract(1, "years");
+
+
+
+    var freqInput = $("#frequ-input").val().trim();     
+
+    var freqConverted = parseInt(freqInput);
+
+console.log(freqConverted);
+
+    var difference = moment().diff(moment(inputTconverted), "minutes");
+
+    var remainder = difference % freqConverted;
+
+    console.log(remainder, freqInput)
+
     
+      
     var nextT = moment().add(minsTill, "minutes");
+
+    var nextTconverted = moment(nextT).format("hh:mm a");
+
+    console.log(nextTconverted);
     
-    var minsTill = freqInput - remainder;
+    var minsTill = parseInt(freqInput - remainder);
 /*var time = moment().format('LT');
 var minsAway = moment(frequency).startOf('hour').fromNow(time);
 var nextArr = frequency * minsAway;*/
 
 
-$("#submit").on("click", function(event) {
-    event.preventDefault();
 
-    trainName = $("#name-input").val().trim();
+    /*trainName = $("#name-input").val().trim();
     destination = $("#dest-input").val().trim();
     freqInput = $("#frequ-input").val().trim();
     inputTconverted = moment(inputT, "hh:mm").subtract(1, "years");
     nextT = moment().add(minsTill, "minutes");
-    minsTill = freqInput - remainder;
+    minsTill = freqInput - remainder; */
 
     database.ref().push({
         trainName: trainName,
         destination: destination,
         freqInput: freqInput,
-        inputTconverted: inputTconverted,
-        nextT: nextT,
-        minsTill: minsTill
+        nextTconverted,
+        minsTill,
+
     });
 
 });
@@ -62,9 +82,8 @@ database.ref().on("child_added", function(childsnapshot) {
     	childsnapshot.val().trainName + "</td><td>" +
     	childsnapshot.val().destination + "</td><td> " + 
     	childsnapshot.val().freqInput + "</td><td>"+ 
-    	childsnapshot.val().inputTconverted + "</td><td>" + 
-    	childsnapshot.val().nextT +"</td><td>"+ 
-        childsnapshot.val().minsTill + "</td></tr>");
+    	childsnapshot.val().nextTconverted + "</td><td>" + 
+    	childsnapshot.val().minsTill + "</td></tr>");
 
 	}, function(errorObject) {
       console.log("Errors handled: " + errorObject.code);
